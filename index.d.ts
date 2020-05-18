@@ -34,6 +34,7 @@ export interface ActionButtonProperties extends ViewProperties {
   verticalOrientation?: 'up' | 'down',
   backgroundTappable?: boolean,
   activeOpacity?: number,
+  fitTextWidth?: boolean,
 
   useNativeFeedback?: boolean,
   fixNativeFeedbackRadius?: boolean,
