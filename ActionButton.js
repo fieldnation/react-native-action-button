@@ -149,7 +149,7 @@ const ActionButton = props => {
           onPressOut={props.onPressOut}
         >
           <Animated.View style={wrapperStyle}>
-            <Animated.View style={[buttonStyle, animatedViewStyle]}>
+            <Animated.View style={[buttonStyle, animatedViewStyle, props.buttonStyle]}>
               {_renderButtonIcon()}
             </Animated.View>
           </Animated.View>
@@ -335,6 +335,7 @@ ActionButton.propTypes = {
   bgColor: PropTypes.string,
   bgOpacity: PropTypes.number,
   buttonColor: PropTypes.string,
+  buttonStyle: Text.propTypes.style,
   buttonTextStyle: Text.propTypes.style,
   buttonText: PropTypes.string,
 
@@ -367,6 +368,7 @@ ActionButton.defaultProps = {
   bgColor: "transparent",
   bgOpacity: 1,
   buttonColor: "rgba(0,0,0,1)",
+  buttonStyle: {},
   buttonTextStyle: {},
   buttonText: "+",
   spacing: 20,
