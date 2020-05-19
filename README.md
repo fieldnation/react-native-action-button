@@ -1,3 +1,5 @@
+(5-19-20) Forked to add additional props, like `buttonStyle` and `fitTextWidth` (for wider buttons to fit whole button text).
+
 # react-native-action-button
 customizable multi-action-button component for react-native
 
@@ -121,6 +123,7 @@ Take a look at [this gist](https://gist.github.com/mmazzarolo/cfd467436f9d110e94
 | degrees       | number        | 135                 | degrees to rotate icon
 | buttonText    | string        | +                   | use this to set a different text on the button
 | buttonTextStyle | style         | null                | use this to set the textstyle of the button's text
+| buttonStyle | style         | null                | use this to set the buttonStyle on the button
 | onReset       | function      | null                | use this to set the callback that will be called after the button reset's it's items
 | verticalOrientation | string  | "up"                | direction action buttons should expand.  One of: `up` or `down`
 | backgroundTappable | boolean  | false               | make background tappable in active state of ActionButton
@@ -129,6 +132,7 @@ Take a look at [this gist](https://gist.github.com/mmazzarolo/cfd467436f9d110e94
 | useNativeFeedback | boolean   | true                | Android: Whether to use a TouchableNativeFeedback
 | fixNativeFeedbackRadius | boolean   | false         | Android: Activate this to fix TouchableNativeFeedback Ripple UI problems
 | nativeFeedbackRippleColor | string   | 'rgba(255,255,255,0.75)'         | Android: Pass a color to the Ripple Effect of a TouchableNativeFeedback
+| fitTextWidth | boolean   | false         | To make the button the full width of the buttonText
 
 
 ##### ActionButton.Item:
