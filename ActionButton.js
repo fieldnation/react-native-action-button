@@ -99,17 +99,18 @@ const ActionButton = props => {
         inputRange: [0, 1],
         outputRange: [props.buttonColor, props.btnOutRange || props.buttonColor]
       }),
-      width: props.size,
+      width: props.fitTextWidth ? '100%' : props.size,
       height: props.size,
-      borderRadius: props.size / 2
+      borderRadius: props.fitTextWidth ? 4 : props.size / 2
     };
 
     const buttonStyle = {
-      width: props.size,
+      width: props.fitTextWidth ? '100%' : props.size,
       height: props.size,
       borderRadius: props.size / 2,
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
+      padding: props.fitTextWidth ? 12 : 2
     };
 
     const Touchable = getTouchableComponent(props.useNativeFeedback);
@@ -149,7 +150,7 @@ const ActionButton = props => {
           onPressOut={props.onPressOut}
         >
           <Animated.View style={wrapperStyle}>
-            <Animated.View style={[buttonStyle, animatedViewStyle]}>
+            <Animated.View style={[buttonStyle, animatedViewStyle, props.buttonStyle]}>
               {_renderButtonIcon()}
             </Animated.View>
           </Animated.View>
@@ -166,7 +167,6 @@ const ActionButton = props => {
       buttonTextStyle,
       buttonText
     } = props;
-    if (renderIcon) return renderIcon(active);
     if (icon) {
       console.warn(
         "react-native-action-button: The `icon` prop is deprecated! Use `renderIcon` instead."
@@ -177,20 +177,23 @@ const ActionButton = props => {
     const textColor = buttonTextStyle.color || "rgba(255,255,255,1)";
 
     return (
-      <Animated.Text
-        style={[
-          styles.btnText,
-          buttonTextStyle,
-          {
-            color: anim.current.interpolate({
-              inputRange: [0, 1],
-              outputRange: [textColor, btnOutRangeTxt || textColor]
-            })
-          }
-        ]}
-      >
-        {buttonText}
-      </Animated.Text>
+      <View style={{ flexDirection: 'row'}}>
+        {renderIcon && renderIcon(active)}
+        <Animated.Text
+          style={[
+            styles.btnText,
+            buttonTextStyle,
+            {
+              color: anim.current.interpolate({
+                inputRange: [0, 1],
+                outputRange: [textColor, btnOutRangeTxt || textColor]
+              })
+            }
+          ]}
+        >
+          {buttonText}
+        </Animated.Text>
+      </View>
     );
   };
 
@@ -335,6 +338,7 @@ ActionButton.propTypes = {
   bgColor: PropTypes.string,
   bgOpacity: PropTypes.number,
   buttonColor: PropTypes.string,
+  buttonStyle: Text.propTypes.style,
   buttonTextStyle: Text.propTypes.style,
   buttonText: PropTypes.string,
 
@@ -358,7 +362,8 @@ ActionButton.propTypes = {
 
   testID: PropTypes.string,
   accessibilityLabel: PropTypes.string,
-  accessible: PropTypes.bool
+  accessible: PropTypes.bool,
+  fitTextWidth: PropTypes.bool
 };
 
 ActionButton.defaultProps = {
@@ -367,6 +372,7 @@ ActionButton.defaultProps = {
   bgColor: "transparent",
   bgOpacity: 1,
   buttonColor: "rgba(0,0,0,1)",
+  buttonStyle: {},
   buttonTextStyle: {},
   buttonText: "+",
   spacing: 20,
@@ -389,7 +395,8 @@ ActionButton.defaultProps = {
   nativeFeedbackRippleColor: "rgba(255,255,255,0.75)",
   testID: undefined,
   accessibilityLabel: undefined,
-  accessible: undefined
+  accessible: undefined,
+  fitTextWidth: false
 };
 
 const styles = StyleSheet.create({
@@ -402,7 +409,6 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent"
   },
   btnText: {
-    marginTop: -4,
     fontSize: 24,
     backgroundColor: "transparent"
   }
